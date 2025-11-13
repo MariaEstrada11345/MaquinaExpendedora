@@ -1,0 +1,380 @@
+/* ---------- Configuración general ---------- */
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 140px; 
+}
+
+/* ---------- Carrusel ---------- */
+.carousel.slide {
+  width: 100%;
+  max-width: 1024px;
+  height: 328px;
+  margin: 0 auto 24px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+}
+
+.carousel-indicators {
+  bottom: 10px;
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: #ccc;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  margin: 0 4px;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-indicators .active {
+  background-color: #f20000;
+}
+
+/* ---------- Botones de categorías ---------- */
+.categorias {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  background-color: #ffffff;
+  padding: 8px 0;
+}
+
+.btn-categoria {
+  width: 149px;
+  height: 56px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 4px;
+  border: 1px solid #f0f3f6;
+  background-color: #f0f3f6;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-categoria i {
+  font-size: 22px;
+}
+
+.btn-categoria.active {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+  box-shadow: 0 3px 6px rgba(220, 53, 69, 0.25);
+}
+
+.btn-categoria:hover:not(.active) {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+}
+
+.btn-categoria.active:hover {
+  background-color: #c82333;
+}
+
+.btn-categoria:active {
+  transform: scale(0.97);
+}
+
+/* Botón de Sándwich más ancho para que abarque el icono */
+.btn-sandwich {
+  width: 181px;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+/* ---------- Grid cards ---------- */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 293px); /* 3 columnas fijas */
+  justify-content: center; /* Centrar horizontalmente */
+  column-gap: 24px; /* Espaciado horizontal */
+  row-gap: 48px; /* Espaciado vertical */
+  margin-top: 48px;
+}
+
+/* ---------- Card de producto---------- */
+.Card-Product-Preview {
+  width: 293px;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  border-radius: 12px;
+  box-shadow: 0 0 12px 0 #dfe3e6;
+  border: none;
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.2s ease-in-out;
+}
+
+.Card-Product-Preview:hover {
+  transform: scale(1.02);
+}
+
+/* ----Imagen del producto-----*/
+.Card-Product-Preview img {
+  height: 240px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/*---- Contenido del cuerpo de la card ----*/
+.Card-Product-Preview .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  padding-bottom: 24px;
+}
+
+/*---- Precio ----*/
+.precio {
+  color: #f20000;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* -----Nombre del producto ----*/
+.nombre-producto {
+  font-size: 15px;
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+/* ---------- Botón Dark ---------- */
+.btn-dark {
+  width: 135px;
+  height: 58px;
+  font-weight: 500;
+  border-radius: 30px;
+  background-color: #212529 !important;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-dark:hover {
+  background-color: #000 !important;
+  transform: scale(1.05);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 992px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 293px); /* 2 por fila en tablet */
+    column-gap: 24px;
+    row-gap: 48px;
+  }
+}
+
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: 293px; /* 1 por fila en móvil */
+    row-gap: 40px;
+  }
+}
+
+/* ---------- Footer fijo ---------- */
+.footer-carrito {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f1f3f5; /* barra clara */
+  padding: 16px 0;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+  z-index: 999;
+}
+
+/* ----Contenedor interno */
+.footer-content {
+  max-width: 1024px;
+  margin: auto;
+  display: flex;                  
+  flex-direction: row;            
+  justify-content: space-between; /* <-- Cada uno al lado */
+  align-items: center;
+  padding: 0 24px;
+}
+
+/*---- Total centrado --- */
+.total-info {
+  text-align: center;
+}
+
+/* ---Badge de número---- */
+.btn-productos .badge {
+  font-size: 14px;
+  background-color: white;
+  color: black;
+}
+
+.btn-productos {
+  min-width: 180px;        
+  border-radius: 15px;     
+  padding: 10px 20px;      /* más espacio interior */
+}
+
+/* ----Botón rojo: Continuar con el pago---- */
+#btnPagar {
+  border-radius: 32px !important;   
+  padding: 14px 30px;
+}
+
+/* ---------- Pop up producto agreagdo ---------- */
+.popup-agregado {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 120px;                    
+  background-color: #37c337;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 40px;
+  font-size: 24px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, bottom 0.3s ease;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+
+/* Estado visible */
+.popup-show {
+  opacity: 1;
+  bottom: 140px; /* un pequeño efecto de subida para que no se oculten los precios */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
