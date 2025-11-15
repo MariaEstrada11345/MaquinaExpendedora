@@ -4,7 +4,7 @@ body {
   background-color: #ffffff;
   margin: 0;
   padding: 0;
-  padding-bottom: 140px; 
+  padding-bottom: 140px;
 }
 
 /* ---------- Carrusel ---------- */
@@ -108,10 +108,14 @@ body {
 /* ---------- Grid cards ---------- */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(3, 293px); /* 3 columnas fijas */
-  justify-content: center; /* Centrar horizontalmente */
-  column-gap: 24px; /* Espaciado horizontal */
-  row-gap: 48px; /* Espaciado vertical */
+  grid-template-columns: repeat(3, 293px);
+  /* 3 columnas fijas */
+  justify-content: center;
+  /* Centrar horizontalmente */
+  column-gap: 24px;
+  /* Espaciado horizontal */
+  row-gap: 48px;
+  /* Espaciado vertical */
   margin-top: 48px;
 }
 
@@ -188,7 +192,8 @@ body {
 /* ---------- Responsive ---------- */
 @media (max-width: 992px) {
   .cards-grid {
-    grid-template-columns: repeat(2, 293px); /* 2 por fila en tablet */
+    grid-template-columns: repeat(2, 293px);
+    /* 2 por fila en tablet */
     column-gap: 24px;
     row-gap: 48px;
   }
@@ -196,7 +201,8 @@ body {
 
 @media (max-width: 600px) {
   .cards-grid {
-    grid-template-columns: 293px; /* 1 por fila en móvil */
+    grid-template-columns: 293px;
+    /* 1 por fila en móvil */
     row-gap: 40px;
   }
 }
@@ -207,9 +213,10 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #f1f3f5; /* barra clara */
+  background-color: #f1f3f5;
+  /* barra clara */
   padding: 16px 0;
-  box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
   z-index: 999;
 }
 
@@ -217,9 +224,10 @@ body {
 .footer-content {
   max-width: 1024px;
   margin: auto;
-  display: flex;                  
-  flex-direction: row;            
-  justify-content: space-between; /* <-- Cada uno al lado */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* <-- Cada uno al lado */
   align-items: center;
   padding: 0 24px;
 }
@@ -237,14 +245,15 @@ body {
 }
 
 .btn-productos {
-  min-width: 180px;        
-  border-radius: 15px;     
-  padding: 10px 20px;      /* más espacio interior */
+  min-width: 180px;
+  border-radius: 15px;
+  padding: 10px 20px;
+  /* más espacio interior */
 }
 
 /* ----Botón rojo: Continuar con el pago---- */
 #btnPagar {
-  border-radius: 32px !important;   
+  border-radius: 32px !important;
   padding: 14px 30px;
 }
 
@@ -253,7 +262,7 @@ body {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 120px;                    
+  bottom: 120px;
   background-color: #37c337;
   color: white;
   padding: 14px 28px;
@@ -273,8 +282,10 @@ body {
 /* Estado visible */
 .popup-show {
   opacity: 1;
-  bottom: 140px; /* un pequeño efecto de subida para que no se oculten los precios */
+  bottom: 140px;
+  /* un pequeño efecto de subida para que no se oculten los precios */
 }
+
 /* ---------- Modal Detalle de Producto ---------- */
 .modal-detalle {
   display: none;
@@ -305,8 +316,15 @@ body {
 }
 
 @keyframes aparecer {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .modal-detalle img {
@@ -330,6 +348,7 @@ body {
   justify-content: flex-end;
   gap: 12px;
 }
+
 /* ---------- Modal Carrito ---------- */
 #modalCarrito .modal-content {
   max-height: 80vh;
@@ -367,4 +386,20 @@ body {
 
 #listaCarrito .btn-eliminar:hover {
   color: #a71d2a;
+}
+
+/* Modal Finalizar Compra */
+#modalPago .item-pago {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+#modalPago img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
 }

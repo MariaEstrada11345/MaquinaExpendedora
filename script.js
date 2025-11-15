@@ -211,5 +211,57 @@ document.addEventListener("DOMContentLoaded", () => {
       modalCarrito.classList.remove("mostrar");
     }
   });
+  /* ---------- Modal Finalizar Pago ---------- */
+  const modalPago = document.getElementById("modalPago");
+  const btnPagar = document.getElementById("btnPagar");
+  const btnCerrarPago = document.getElementById("cerrarPago");
+  const listaPago = document.getElementById("listaPago");
+  const totalPago = document.getElementById("totalPago");
+
+  /* Renderizar listado de pago (sin eliminar) */
+  function renderizarPago() {
+    listaPago.innerHTML = "";
+
+    if (carrito.length === 0) {
+      listaPago.innerHTML = "<p class='text-center text-muted'>El carrito está vacío.</p>";
+      totalPago.textContent = "Q0.00";
+      return;
+    }
+
+    carrito.forEach((prod) => {
+      const item = document.createElement("div");
+      item.classList.add("item-pago");
+
+      item.innerHTML = `
+      <div class="d-flex align-items-center gap-2">
+        <img src="${prod.imagen}">
+        <span>${prod.nombre} (x${prod.cantidad})</span>
+      </div>
+      <strong>Q${(prod.precio * prod.cantidad).toFixed(2)}</strong>
+    `;
+
+      listaPago.appendChild(item);
+    });
+
+    totalPago.textContent = `Q${total.toFixed(2)}`;
+  }
+
+  /* Abrir modal de pago */
+  btnPagar.addEventListener("click", () => {
+    renderizarPago();
+    modalPago.classList.add("mostrar");
+  });
+
+  /* Cerrar modal */
+  btnCerrarPago.addEventListener("click", () => {
+    modalPago.classList.remove("mostrar");
+  });
+
+  /* Cerrar clic fuera */
+  window.addEventListener("click", (e) => {
+    if (e.target === modalPago) {
+      modalPago.classList.remove("mostrar");
+    }
+  });
 
 });
