@@ -6,7 +6,254 @@ document.addEventListener("DOMContentLoaded", () => {
   botonesCategorias.forEach((btn) => {
     btn.addEventListener("click", () => {
       botonesCategorias.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");document.addEventListener("DOMContentLoaded", () => {
+
+  /* VARIABLES GLOBALES */
+  let contador = 0;
+  let total = 0;
+  const precioProducto = 10.00;
+  let carrito = []; // { nombre, precio, imagen, cantidad }
+
+  /* ELEMENTOS */
+  const txtContador = document.getElementById("contadorCarrito");
+  const txtTotal = document.getElementById("totalCarrito");
+  const popup = document.getElementById("popupAgregado");
+
+  const modalDetalle = document.getElementById("modalDetalleProducto");
+  const btnCerrarModal = document.getElementById("cerrarModal");
+  const btnAgregarModal = document.getElementById("agregarDesdeModal");
+
+  const modalCarrito = document.getElementById("modalCarrito");
+  const btnCarrito = document.querySelector(".btn-productos");
+  const btnCerrarCarrito = document.getElementById("cerrarCarrito");
+  const listaCarrito = document.getElementById("listaCarrito");
+  const totalCarritoModal = document.getElementById("totalCarritoModal");
+
+  const modalPago = document.getElementById("modalPago");
+  const btnPagar = document.getElementById("btnPagar");
+  const btnCerrarPago = document.getElementById("cerrarPago");
+  const listaPago = document.getElementById("listaPago");
+  const totalPago = document.getElementById("totalPago");
+
+  /* UTILIDAD: CERRAR TODOS LOS MODALES */
+  function cerrarTodosLosModales() {
+    modalDetalle.classList.remove("mostrar");
+    modalCarrito.classList.remove("mostrar");
+    modalPago.classList.remove("mostrar");
+  }
+
+  /* POPUP */
+  function mostrarPopup() {
+    popup.classList.add("popup-show");
+    setTimeout(() => popup.classList.remove("popup-show"), 2000);
+  }
+
+  /* CARRITO - ACTUALIZACIONES*/
+  function actualizarCarrito() {
+    txtContador.textContent = contador;
+    txtTotal.textContent = `Q${total.toFixed(2)}`;
+  }
+
+  function agregarProducto(nombre, precio, imagen) {
+    const prod = carrito.find((p) => p.nombre === nombre);
+
+    if (prod) {
+      prod.cantidad++;
+    } else {
+      carrito.push({ nombre, precio, imagen, cantidad: 1 });
+    }
+
+    contador++;
+    total += precio;
+
+    actualizarCarrito();
+    mostrarPopup();
+  }
+
+  /* CATEGORÍAS */
+  document.querySelectorAll(".btn-categoria").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelector(".btn-categoria.active")?.classList.remove("active");
       btn.classList.add("active");
+    });
+  });
+
+  /* AÑADIR DESDE LAS CARDS */
+  document.querySelectorAll(".Card-Product-Preview .btn-dark").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      const card = e.target.closest(".Card-Product-Preview");
+      agregarProducto(
+        card.querySelector(".nombre-producto").textContent,
+        precioProducto,
+        card.querySelector("img").src
+      );
+    });
+  });
+
+  /* MODAL DETALLE PRODUCTO */
+  document.querySelectorAll(".Card-Product-Preview").forEach((producto) => {
+    producto.addEventListener("click", () => {
+      cerrarTodosLosModales();
+
+      modalDetalle.querySelector("#modalNombre").textContent =
+        producto.querySelector(".nombre-producto").textContent;
+
+      modalDetalle.querySelector("#modalPrecio").textContent =
+        producto.querySelector(".precio").textContent;
+
+      modalDetalle.querySelector("#modalImagen").src =
+        producto.querySelector("img").src;
+
+      modalDetalle.querySelector("#modalDescripcion").textContent =
+        "Este es un delicioso producto de alta calidad, ideal para disfrutar en cualquier momento del día.";
+
+      modalDetalle.classList.add("mostrar");
+    });
+  });
+
+  btnCerrarModal.addEventListener("click", () => {
+    modalDetalle.classList.remove("mostrar");
+  });
+
+  btnAgregarModal.addEventListener("click", () => {
+    agregarProducto(
+      modalDetalle.querySelector("#modalNombre").textContent,
+      precioProducto,
+      modalDetalle.querySelector("#modalImagen").src
+    );
+    modalDetalle.classList.remove("mostrar");
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modalDetalle) modalDetalle.classList.remove("mostrar");
+  });
+
+  /* MODAL CARRITO */
+  function renderizarCarrito() {
+    listaCarrito.innerHTML = "";
+
+    if (carrito.length === 0) {
+      listaCarrito.innerHTML =
+        "<p class='text-center text-muted'>No hay productos en el carrito.</p>";
+      totalCarritoModal.textContent = "Q0.00";
+      return;
+    }
+
+    carrito.forEach((prod, index) => {
+      const subtotal = prod.precio * prod.cantidad;
+
+      listaCarrito.innerHTML += `
+        <div class="item-carrito">
+          <div class="item-info">
+            <img src="${prod.imagen}">
+            <div>
+              <p class="m-0 fw-semibold">${prod.nombre}</p>
+              <small class="text-muted">Q${prod.precio.toFixed(2)} c/u</small><br>
+              <small class="fw-semibold">Cantidad: ${prod.cantidad}</small><br>
+              <small class="fw-semibold">Subtotal: Q${subtotal.toFixed(2)}</small>
+            </div>
+          </div>
+
+          <div class="item-actions">
+            <button class="btn-restar" data-index="${index}">-</button>
+            <button class="btn-sumar" data-index="${index}">+</button>
+            <button class="btn-eliminar" data-index="${index}">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </div>
+        </div>
+      `;
+    });
+
+    totalCarritoModal.textContent = `Q${total.toFixed(2)}`;
+  }
+
+  btnCarrito.addEventListener("click", () => {
+    cerrarTodosLosModales();
+    renderizarCarrito();
+    modalCarrito.classList.add("mostrar");
+  });
+
+  btnCerrarCarrito.addEventListener("click", () => {
+    modalCarrito.classList.remove("mostrar");
+  });
+
+  listaCarrito.addEventListener("click", (e) => {
+    const index = e.target.closest("button")?.dataset.index;
+    if (index === undefined) return;
+
+    if (e.target.closest(".btn-eliminar")) {
+      contador -= carrito[index].cantidad;
+      total -= carrito[index].precio * carrito[index].cantidad;
+      carrito.splice(index, 1);
+    }
+
+    if (e.target.closest(".btn-sumar")) {
+      carrito[index].cantidad++;
+      contador++;
+      total += carrito[index].precio;
+    }
+
+    if (e.target.closest(".btn-restar")) {
+      if (carrito[index].cantidad > 1) {
+        carrito[index].cantidad--;
+        contador--;
+        total -= carrito[index].precio;
+      }
+    }
+
+    actualizarCarrito();
+    renderizarCarrito();
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modalCarrito) modalCarrito.classList.remove("mostrar");
+  });
+
+  /* MODAL PAGO FINAL */
+  function renderizarPago() {
+    listaPago.innerHTML = "";
+
+    if (carrito.length === 0) {
+      listaPago.innerHTML =
+        "<p class='text-center text-muted'>El carrito está vacío.</p>";
+      totalPago.textContent = "Q0.00";
+      return;
+    }
+
+    carrito.forEach((prod) => {
+      listaPago.innerHTML += `
+        <div class="item-pago">
+          <div class="d-flex align-items-center gap-2">
+            <img src="${prod.imagen}">
+            <span>${prod.nombre} (x${prod.cantidad})</span>
+          </div>
+          <strong>Q${(prod.precio * prod.cantidad).toFixed(2)}</strong>
+        </div>
+      `;
+    });
+
+    totalPago.textContent = `Q${total.toFixed(2)}`;
+  }
+
+  btnPagar.addEventListener("click", () => {
+    cerrarTodosLosModales();
+    renderizarPago();
+    modalPago.classList.add("mostrar");
+  });
+
+  btnCerrarPago.addEventListener("click", () => {
+    modalPago.classList.remove("mostrar");
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modalPago) modalPago.classList.remove("mostrar");
+  });
+
+});
+
     });
   });
 
